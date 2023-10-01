@@ -1,0 +1,310 @@
+ /*Body Background */
+ body {
+    background-image: url('../static/images/wallpaper.jpg'); /* Replace with your image path */
+    background-size: cover; /* Adjust the background size as needed */
+    background-repeat: no-repeat;
+  }
+  /*Body ends here*/
+  
+  /* Logo starts here:  */
+  
+  .logo {
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    margin-left: 10px;
+    border-radius: 30px;
+    box-shadow: 2px 5px 9px chocolate;
+  }
+  /* Logo ends here: */
+  
+  
+  
+  
+  /* Navbar Construction starts here: */
+  .navbar{
+    background-color: transparent;
+    color: rgb(235, 183, 119);
+    font-size: 20px;
+    margin-top: 0px;
+    margin-right: 0px;
+  } 
+  .navbar-nav a:hover {
+    font-weight: bold;
+    color: rgb(50, 255, 39);
+    text-decoration: underline;
+    text-transform: uppercase;
+  }
+  
+  .navbar-nav a{
+    color: rgb(242, 235, 221);
+  }
+  /* navbar construction ends here */
+  
+  
+  
+  
+  /* Header Starts here */
+  @import url('https://fonts.googleapis.com/css?family=Roboto:700');
+  
+  p {
+    text-shadow: 0 0 7px rgba(26, 24, 24, 0.3), 0 0 3px rgba(255,255,255,.3);
+  }
+  .container {
+    color: #e5e5e5;
+    font-size: 29px;
+    margin-top: -45px;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .animation {
+    height:60px;
+    overflow:hidden;
+    margin-left: 1rem;
+  }
+  
+  .animation > div > div {
+    padding: 0.25rem 0.50rem;
+    height:2.91rem;
+    margin-bottom: 2.81rem;
+    display:inline-block;
+  }
+  
+  .animation div:first-child {
+    animation: text-animation 8s infinite;
+  }
+  
+  .first div {
+    background-color:#20a7d8;
+  }
+  .second div {
+    background-color:#CD921E;
+  }
+  .third div{
+      background-color: #1bba40;
+  }
+  
+  @keyframes text-animation {
+    0% {margin-top: 0;}
+    10% {margin-top: 0;}
+    20% {margin-top: -5.62rem;}
+    30% {margin-top: -5.62rem;}
+    40% {margin-top: -11.24rem;}
+    60% {margin-top: -11.24rem;}
+    70% {margin-top: -5.62rem;}
+    80% {margin-top: -5.62rem;}
+    90% {margin-top: 0;}
+    100% {margin-top: 0;}
+  }
+  /* Header Ends Here: */
+    
+  
+  
+  
+  /* First grid container starts here: "Data Analysis" */
+  .container1 {
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      gap: 10px; 
+    }
+    
+    .columnx {
+      padding: 20px;
+      transition: transform 0.3s ease;
+    }
+    
+    .column1 {
+      overflow: hidden; 
+      padding-left: 80px;
+    }
+    
+  .column1 img {
+      width: 500px;
+      height: 480px;
+      transition: transform 0.3s ease;
+      border-radius: 30px;
+      box-shadow: 2px 5px 20px  rgb(45, 45, 45);
+    }
+    
+    .column1 img:hover {
+      transform: scale(1.1); /* Zoom effect on hover */
+    }
+    
+    .column2 {
+      color: aliceblue;
+      text-decoration: solid;
+      font-weight: 600;
+      font-style: italic;
+      padding-right: 50px;
+      text-align: center;
+    }
+  
+  .h5{
+    padding-top: 50px;
+    padding-right: 25px;
+    line-height: 2;
+  }
+  .h5:hover{
+    transform: scale(1.1);
+    text-transform: uppercase;
+  }
+  /* First Container Ends here */
+  
+  
+  
+  
+  
+  /* Second Grid Container starts here: "Pattern and Relationship" */
+  .container2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    margin-top: 30px;
+  }
+  
+  .columny {
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .column4 {
+    overflow: hidden; 
+    padding-left: 150px;
+  }
+  
+  .column4 img {
+    width: 500px;
+    height: 480px;
+    transition: transform 0.3s ease;
+    border-radius: 30px;
+    box-shadow: 2px 5px 20px  rgb(45, 45, 45);
+  }
+  
+  .column4 img:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+  }
+  
+  .column3 {
+    color: aliceblue;
+    text-decoration: solid;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 50px;
+    text-align: center;
+  }
+  
+  .pattern{
+  padding-top: 50px;
+  padding-left: 25px;
+  line-height: 2;
+  }
+  .pattern:hover{
+  padding-left: 15px;
+  transform: scale(1.1);
+  text-transform: uppercase;
+  }
+  /* Second Grid container ends here */
+  
+  
+  
+  
+  
+  /* Third grid container starts here: forecasting */
+  .container3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 10px; 
+    margin-top: 30px;
+  }
+  
+  .columnz {
+    padding: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .column5 {
+    overflow: hidden; 
+    padding-left: 80px;
+  }
+  
+  .column5 img {
+    width: 500px;
+    height: 480px;
+    transition: transform 0.3s ease;
+    border-radius: 30px;
+    box-shadow: 2px 5px 20px  rgb(45, 45, 45);
+  }
+  
+  .column5 img:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+  }
+  
+  .column6 {
+    color: aliceblue;
+    text-decoration: solid;
+    font-weight: 600;
+    font-style: italic;
+    padding-right: 50px;
+    text-align: center;
+  }
+  
+  .forecasting{
+  padding-top: 50px;
+  padding-right: 25px;
+  line-height: 2;
+  }
+  .forecasting:hover{
+  transform: scale(1.1);
+  text-transform: uppercase;
+  }
+  /* Third grid container ends here */
+  
+  
+  
+  
+  
+  /*For the button*/
+  .center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    margin-bottom: 20px; 
+  }
+  /*Button ends here*/
+  
+  
+  
+  
+  /* Footer Starts Here: */
+   .footer {
+    background-color: #0a422d ;
+    color: white;
+    padding: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-left {
+    padding-left: 5px;
+    text-align: left;
+  }
+  
+  .footer-middle {
+    text-align: center;
+  }
+  
+  .footer-right {
+    padding-right: 10px;
+    text-align: right;
+  }
+  
+  .icon {
+    color: white;
+    margin-left: 10px;
+    font-size: 20px;
+  }
+  /*Footer ends here*/

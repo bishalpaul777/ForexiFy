@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ForexiFy</title>
+<link rel="stylesheet" href="../static/css/index.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@500&family=Roboto+Slab&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+    body {
+        background-image: url('../static/images/wallpaper.jpg'); /* Replace with your image path */
+        background-size: cover; /* Adjust the background size as needed */
+        background-repeat: no-repeat;
+      }
+  .h5{
+    line-height: 2;
+  }
+</style>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="../static/images/logo.png" alt="logo" class="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+          <a class="nav-link" href="#getstart">Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <p>Welcome to</p>
+    <section class="animation">
+      <div class="first"><div>Sales Analysis</div></div>
+      <div class="second"><div>Sales Forecasting</div></div>
+      <div class="third"><div>DashBoard</div></div>
+    </section>
+  </main>
+
+  <div class="container1">
+    <div class="columnx column1">
+      <img src="../static/images/Pattern.jpeg" alt="Image">
+    </div>
+    <div class="columnx column2">
+      <h2><u>Data Analysis</u></h2>
+      <h5 class="h5">
+        Data analysis involves the examination, transformation, and interpretation of raw data to uncover valuable insights, trends, and patterns. By employing statistical and computational methods, data analysis facilitates informed decision-making, aids in problem-solving, and guides strategies across various industries. It enables businesses and researchers to extract meaningful information from complex datasets, enhancing understanding and driving advancements.
+      </h5>
+    </div>
+  </div>
+
+  <div class="container2">
+    <div class="columny column3">
+      <h2><u>Pattern & Relationship</u></h2>
+      <h5 class="pattern">In data analysis, patterns and relationships unveil valuable insights within datasets. Patterns are recurring structures or trends, while relationships indicate how variables interact. Identifying these aspects helps uncover hidden correlations, forecast trends, and make informed decisions. Data analysts scrutinize data to extract meaningful patterns and relationships, enabling businesses to optimize strategies, enhance decision-making, and drive success.
+      </h5>
+    </div>
+    <div class="columny column4">
+      <img src="../static/images/relationship.jpeg" alt="Image">
+    </div>
+  </div>
+
+  <div class="container3">
+    <div class="columnz column5">
+      <img src="../static/images/forecasting.jpeg" alt="Image">
+    </div>
+    <div class="columnz column6">
+      <h2><u>Forecasting</u></h2>
+      <h5 class="forecasting">
+        Forecasting in data analysis involves predicting future trends, values, or outcomes based on historical data and patterns. By employing statistical models and machine learning algorithms, businesses can make informed decisions, allocate resources effectively, and respond to changing market dynamics. Accurate forecasting enhances strategic planning and minimizes risks, enabling organizations to adapt and thrive in a dynamic environment.
+      </h5>
+    </div>
+  </div>
+
+  <div id="buttonsection" class="center">
+    <a class="btn btn-outline-light" id="getstart" href="{{ url_for('dashboard') }}" role="button">Get Started</a>
+</div>
+
+
+  <footer class="footer">
+    <div class="footer-left">
+      Sales Dashboard
+    </div>
+    <div class="footer-middle">
+      &copy; 2023 "BISHAL PAUL". All rights reserved.
+    </div>
+    <div class="footer-right">
+      <a href="https://github.com/bishalpaul777" class="icon"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/paulbishal/" class="icon"><i class="fab fa-linkedin"></i></a>
+    </div>
+  </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

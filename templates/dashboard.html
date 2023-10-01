@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ForexiFy - dashboard</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+          crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@500&family=Roboto+Slab&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<style>
+    body {
+        background-image: url('../static/images/wallpaper.jpg'); /* Replace with your image path */
+        background-size: cover; /* Adjust the background size as needed */
+        background-repeat: no-repeat;
+    }
+     /* Navbar Construction starts here: */
+  .navbar{
+    background-color: transparent;
+    color: rgb(235, 183, 119);
+    font-size: 20px;
+    margin-top: 0px;
+    margin-right: 0px;
+  } 
+  .navbar-nav a:hover {
+    font-weight: bold;
+    color: rgb(50, 255, 39);
+    text-decoration: underline;
+    text-transform: uppercase;
+  }
+  
+  .navbar-nav a{
+    color: rgb(242, 235, 221);
+  }
+  /* navbar construction ends here */
+
+    .h5 {
+        line-height: 2;
+    }
+    .title{
+        padding-bottom: 90px;
+        padding-right: 10px;
+    }
+    #mainform{
+      padding-bottom: 30px;
+    }
+    .card{
+        gap: 10px;
+        border-radius: 30px;
+    }
+    .main{
+      margin-top:350px;
+    }
+    .container1{
+      margin-top: 40px;
+    }
+    .container2{
+        margin-top: 20px;
+        padding-bottom: 10px;
+    }
+    .container4{
+        margin-top: 20px;
+        padding-bottom: 10px;
+    }
+    .card:hover {
+        transform: scale(1.05); /* Adjust the scale factor as needed */
+        transition: transform 0.2s ease; /* Add a smooth transition effect */
+    }
+    .card-img-top{
+        border-radius: 30px;
+        width: 100%;
+        height: 170px;
+    }
+  .box-container{
+    margin-top: 170px;
+    border-radius: 15px;
+  }
+  .mainheader{
+    color: white;
+    text-align: center;
+  }
+  .navbar{
+    background-color: transparent;
+    color: rgb(235, 183, 119);
+    font-size: 20px;
+    margin-top: 0px;
+    margin-right: 0px;
+  } 
+  .navbar-nav a:hover {
+    font-weight: bold;
+    color: rgb(50, 255, 39);
+    text-decoration: underline;
+    text-transform: uppercase;
+  }
+  .navbar-nav a{
+    color: rgb(242, 235, 221);
+  }
+</style>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="../static/images/logo.png" alt="logo" class="logo">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ms-auto">
+          <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<!-- Add the file upload form -->
+<div class="container mt-2">
+    <h4 class="title">Upload Your Dataset</h4>
+    <form method="POST" id="mainform" enctype="multipart/form-data" action="/dashboard">
+        <div class="mb-3">
+            <input type="file" class="form-control" id="file" name="file" accept=".csv, .xlsx">
+        </div>
+        <button type="submit" class="btn btn-primary" style="padding-bottom: 10px;">Upload</button>
+    </form>
+</div>
+
+{% if dataset_uploaded %}
+<div class="container mt-1" id="dataset-container">
+  
+      <!-- Display the dataset visualization inside a scrollable box -->
+      <div class="box-container" style="overflow: auto; width: 3800px; height: 500px;">
+          <table class="table table-sm" style="font-size: 16px;">
+              <thead>
+                  <tr>
+                      {% for column in dataset.columns %}
+                          <th>{{ column }}</th>
+                      {% endfor %}
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for _, row in dataset.iterrows() %}
+                      <tr>
+                          {% for _, value in row.items() %}
+                              <td>{{ value }}</td>
+                          {% endfor %}
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+  
+</div>
+<div class="main">
+  <h2 class="mainheader"><u>Basic Visualization and Insights</u></h2>
+<div class="container1">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left:250px;">
+          <img src="../static/cards/card1.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Total Sales</h5>
+            <h7 class="card-title">Total Profits</h7>
+            <p class="card-text">Visualizing the total sales and profits earned over the years.</p>
+            <a href="{{ url_for('sapo') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left: 320px;">
+          <img src="..//static/cards/card2.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Top States</h5>
+            <p class="card-text">Visualizing the top states who gives more sales.</p>
+          </br>
+            <a href="{{ url_for('topstates') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left: 390px;">
+          <img src="../static/cards/card3.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Top Categories</h5>
+            <p class="card-text">Visualizing the top categories which are sold more in quantity.</p>
+        </br>
+            <a href="{{ url_for('topcategories') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container2">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left:400px;">
+          <img src="../static/cards/card4.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Top Customers</h5>
+            <p class="card-text">Visualizing the top customers engaged in the business.</p>
+        </br>
+            <a href="{{ url_for('topcustomers') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left: 470px;">
+          <img src="../static/cards/card5.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Payment Modes</h5>
+            <p class="card-text">Visualizing the different payment modes that customer used to pay the bills.</p>
+            <a href="{{ url_for('payment') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container3">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left:250px;">
+          <img src="../static/cards/card6.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Time Series Analysis</h5>
+            <p class="card-text">Analyze the sales using time series algorithm.</p>
+            <a href="{{ url_for('analysis') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left: 320px;">
+          <img src="../static/cards/card7.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Correlation</h5>
+            <p class="card-text">Visualizing the relation between the parameters.</p>
+            <a href="{{ url_for('correlation') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left: 390px;">
+          <img src="../static/cards/card8.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Time Series Forecasting</h5>
+            <p class="card-text">Forecast the future sales.</p>
+        </br>
+            <a href="{{ url_for('forecasting') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container4">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left:400px;">
+          <img src="../static/cards/card9.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Linear Regression</h5>
+            <p class="card-text">To predict the future profit analyzing current data</p>
+            <a href="{{ url_for('linear') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem; margin-left: 270px;">
+          <img src="../static/cards/card10.jpeg" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Clustering for Demand Prediction </h5>
+        </br>
+            <p class="card-text"></p>
+            <a href="{{ url_for('demand') }}" class="btn btn-primary">Get Analytics</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endif %}
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Sales and Profit</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Total Sales and Profit</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous"> 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@500&family=Roboto+Slab&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    body {
+        background-image: url('../static/images/wallpaper.jpg'); /* Replace with your image path */
+        background-size: cover; /* Adjust the background size as needed */
+        background-repeat: no-repeat;
+    }
+
+    .logo {
+        width: 40px; /* Adjust as needed */
+        height: 40px; /* Adjust as needed */
+        margin-left: 10px;
+        border-radius: 30px;
+        box-shadow: 2px 5px 9px chocolate;
+    }
+
+    /* Logo ends here: */
+
+    /* Navbar Construction starts here: */
+    .navbar{
+        background-color: transparent;
+        color: rgb(235, 183, 119);
+        font-size: 20px;
+        margin-top: 0px;
+        margin-right: 0px;
+    }
+
+    .navbar-nav a:hover {
+        font-weight: bold;
+        color: rgb(50, 255, 39);
+        text-decoration: underline;
+        text-transform: uppercase;
+    }
+
+    .navbar-nav a{
+        color: rgb(242, 235, 221);
+    }
+
+    /* navbar construction ends here */
+
+    /* First grid container starts here: "Data Analysis" */
+    .container1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr; 
+        gap: 10px; 
+    }
+
+    .column1 {
+        padding: 20px;
+        transition: transform 0.3s ease;
+        color: #C1C1C1;
+        text-decoration: solid;
+        font-weight: 600;
+        padding-right: 50px;
+        text-align: center;
+    }
+
+    .column2 {
+        padding: 20px;
+        transition: transform 0.3s ease;
+        color: #C1C1C1;
+        text-decoration: solid;
+        font-weight: 600;
+        padding-right: 50px;
+        text-align: center;
+    }
+
+    .h5{
+        padding-top: 20px;
+        padding-right: 25px;
+        line-height: 2;
+    }
+
+    .header{
+        margin-top: 40px;
+        color: #C1C1C1;
+        text-align: center;
+    }
+
+    .card-img-top{
+        align-item: center;
+        border-radius: 30px;
+        width: 200px;;
+        height: 200px;
+    }
+
+    .container1{
+        margin-top: 55px;
+    }
+
+    .sales-container {
+        border: 1px solid #000; /* Add your desired border styles */
+        padding: 20px;
+        margin: 20px;
+        background-color: #fff; /* Add your desired background color */
+        border-radius: 10px; /* Add border-radius for rounded corners */
+    }
+
+    /* Style the button */
+    .btn-primary {
+        margin-top: 10px;
+    }
+    /* Hide the canvas initially */
+canvas {
+  display: none;
+}
+.navbar{
+    background-color: transparent;
+    color: rgb(235, 183, 119);
+    font-size: 20px;
+    margin-top: 0px;
+    margin-right: 0px;
+  } 
+  .navbar-nav a:hover {
+    font-weight: bold;
+    color: rgb(50, 255, 39);
+    text-decoration: underline;
+    text-transform: uppercase;
+  }
+  .navbar-nav a{
+    color: rgb(242, 235, 221);
+  }
+</style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="../static/images/logo.png" alt="logo" class="logo">
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+              <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+              <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </div>
+          </div>
+        </div>
+      </nav>
+<h2 class="header">Sales and Profit Analysis</h2>
+<div class="container1">
+    <div class="column1">
+        <h2>Total Sales</h2>
+        <img src="../static/cards/card1.jpeg" class="card-img-top" alt="...">
+        <h5 class="h5">
+            Visualizing The total sales by calculating the amount spent over the years from the dataset.
+        </h5>
+        <button type="button" class="btn btn-primary" id="viewSalesButton">View Analytics</button>
+        <canvas id="totalSalesChart" width="400" height="200"></canvas>
+    </div>
+    <div class="column2">
+        <h2>Total Profit</h2>
+        <img src="../static/cards/profit.jpg" class="card-img-top" alt="...">
+        <h5 class="h5">
+            Visualizing The total profit by calculating the profit earned over the years from the dataset.
+        </h5>
+        <button type="button" class="btn btn-primary" id="viewProfitButton">View Analytics</button>
+        <canvas id="totalprofitChart" width="400" height="200"></canvas>
+    </div>
+</div>
+<script>
+    document.getElementById('viewSalesButton').addEventListener('click', function () {
+        // Send an AJAX request to fetch the sales data
+        fetch('/get_sales_data')
+            .then(response => response.json())
+            .then(data => {
+                // Extract the chart data
+                const chartData = data.ChartData;
+    
+                // Get the canvas element for the chart
+                const canvas = document.getElementById('totalSalesChart');
+    
+                // Create a new Chart.js chart
+                new Chart(canvas, {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+    
+                // Show the canvas
+                canvas.style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching total sales data:', error));
+    });
+    
+    document.getElementById('viewProfitButton').addEventListener('click', function () {
+        // Send an AJAX request to fetch the profit data
+        fetch('/get_profit_data')
+            .then(response => response.json())
+            .then(data => {
+                // Extract the chart data
+                const chartData = data.ChartData;
+    
+                // Get the canvas element for the chart
+                const canvas = document.getElementById('totalprofitChart');
+    
+                // Create a new Chart.js chart
+                new Chart(canvas, {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+    
+                // Show the canvas
+                canvas.style.display = 'block';
+            })
+            .catch(error => console.error('Error fetching total profit data:', error));
+    });
+    
+    
+</script>
+</body>
+</html>
