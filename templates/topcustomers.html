@@ -142,10 +142,78 @@
       </h5>
     </div>
   </div>
-  <div class="center-container">
-    <button type="submit" class="btn btn-primary">View Analytics</button>
+<div class="center-container">
+  <button type="button" class="btn btn-primary" id="viewTopCustomersButton">View Analytics</button>
+  <div id="topCustomersChartDiv">
+      <canvas id="topCustomersChart" width="400" height="400"></canvas>
+  </div>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Include Chart.js library -->
+<script>
+$(document).ready(function () {
+  $("#viewTopCustomersButton").click(function () {
+      $.ajax({
+          url: "/get_top_customers_data",
+          method: "GET",
+          success: function (response) {
+              if (response.message === "Success") {
+                  renderTopCustomersChart(response.data);
+              } else {
+                  alert("Data not available.");
+              }
+          },
+          error: function () {
+              alert("An error occurred while fetching data.");
+          }
+      });
+  });
+
+  function renderTopCustomersChart(data) {
+      var ctx = document.getElementById('topCustomersChart').getContext('2d');
+      new Chart(ctx, {
+          type: 'bar',
+          data: {
+              labels: data.labels,
+              datasets: [{
+                  label: 'Amount',
+                  data: data.values,
+                  backgroundColor: 'rgba(135, 132, 222, 0.7)',  // Change the bar color
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1
+              }]
+          },
+          options: {
+              indexAxis: 'y',
+              scales: {
+                  x: {
+                      beginAtZero: true
+                  },
+                  y: {
+                      reverse: false
+                  }
+              },
+              responsive: true, // Make the chart responsive
+              maintainAspectRatio: false, // Disable aspect ratio
+              plugins: {
+                  legend: {
+                      display: false // Hide the legend
+                  },
+                  title: {
+                      display: true,
+                      text: 'Top Customers',
+                      fontSize: 20
+                  }
+              }
+          }
+      });
+  }
+});
+</script>
+
+  
+  
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>

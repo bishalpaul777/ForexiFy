@@ -121,6 +121,26 @@ def topcustomers():
     return render_template('topcustomers.html')
 
 
+@app.route('/get_top_customers_data', methods=['GET'])
+def get_top_customers_data():
+    global global_dataset
+
+    if global_dataset is not None:
+        customer_amount = global_dataset.groupby('CustomerName')['Amount'].sum()
+
+        top_customers = customer_amount.sort_values(ascending=False).head(7)  # You can adjust the number as needed
+
+        data = {
+            "labels": top_customers.index.tolist(),
+            "values": top_customers.values.tolist()
+        }
+
+        return jsonify({"message": "Success", "data": data})
+
+    return jsonify({"message": "Data not available"})
+
+
+
 @app.route('/topstates')
 def topstates():
     return render_template('topstates.html')
