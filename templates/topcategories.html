@@ -143,8 +143,87 @@
     </div>
   </div>
   <div class="center-container">
-    <button type="submit" class="btn btn-primary">View Analytics</button>
+    <button type="button" class="btn btn-primary" id="viewTopCategoriesButton">View Analytics</button>
+    <div id="topCategoriesChartDiv">
+        <canvas id="topCategoriesChart" width="400" height="400"></canvas>
+    </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script> 
+<script>
+  $(document).ready(function () {
+      $("#viewTopCategoriesButton").click(function () {
+          $.ajax({
+              url: "/get_top_categories_data",
+              method: "GET",
+              success: function (response) {
+                  if (response.message === "Success") {
+                      renderTopCategoriesChart(response.data);
+                  } else {
+                      alert("Data not available.");
+                  }
+              },
+              error: function () {
+                  alert("An error occurred while fetching data.");
+              }
+          });
+      });
+  
+      function renderTopCategoriesChart(data) {
+          var ctx = document.getElementById('topCategoriesChart').getContext('2d');
+          
+          // Define an array of unique colors for bars
+          var barColors = [
+              'rgba(75, 192, 192, 0.7)',
+              'rgba(255, 99, 132, 0.7)',
+              'rgba(54, 162, 235, 0.7)',
+              'rgba(255, 206, 86, 0.7)',
+              'rgba(153, 102, 255, 0.7)',
+              'rgba(255, 159, 64, 0.7)',
+              // Add more colors as needed
+          ];
+  
+          new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: data.labels,
+                  datasets: [{
+                      label: 'Amount',
+                      data: data.values,
+                      backgroundColor: barColors,  // Assign unique colors to bars
+                      borderColor: 'rgba(75, 192, 192, 1)',
+                      borderWidth: 1
+                  }]
+              },
+              options: {
+                  scales: {
+                      x: {
+                          beginAtZero: true
+                      },
+                      y: {
+                          reverse: false
+                      }
+                  },
+                  responsive: true,
+                  maintainAspectRatio: false,
+                  plugins: {
+                      legend: {
+                          display: false
+                      },
+                      title: {
+                          display: true,
+                          text: 'Top Categories',
+                          fontSize: 20
+                      }
+                  }
+              }
+          });
+      }
+  });
+  </script>
+  
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>

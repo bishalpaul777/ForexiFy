@@ -176,6 +176,16 @@
 
       function renderTopStatesChart(data) {
           var ctx = document.getElementById('topStatesChart').getContext('2d');
+          // Define an array of unique colors for bars
+        var barColors = [
+        'rgba(75, 192, 192, 0.7)',
+        'rgba(255, 99, 132, 0.7)',
+        'rgba(54, 162, 235, 0.7)',
+        'rgba(255, 206, 86, 0.7)',
+        'rgba(153, 102, 255, 0.7)',
+        'rgba(255, 159, 64, 0.7)',
+        // Add more colors as needed
+    ];
           new Chart(ctx, {
               type: 'bar',
               data: {
@@ -183,7 +193,7 @@
                   datasets: [{
                       label: 'Profit',
                       data: data.values,
-                      backgroundColor: 'rgba(75, 192, 192, 0.7)',  // Change the bar color
+                      backgroundColor: barColors,  // Assign unique colors to bars
                       borderColor: 'rgba(75, 192, 192, 1)',
                       borderWidth: 1
                   }]

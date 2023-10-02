@@ -168,10 +168,45 @@ def get_top_states_data():
 def topcategories():
     return render_template('topcategories.html')
 
+@app.route('/get_top_categories_data', methods=['GET'])
+def get_top_categories_data():
+    global global_dataset
+
+    if global_dataset is not None:
+        category_sales = global_dataset.groupby('Sub-Category')['Amount'].sum()
+
+        top_categories = category_sales.sort_values(ascending=False).head(10)  # You can adjust the number as needed
+
+        data = {
+            "labels": top_categories.index.tolist(),
+            "values": top_categories.values.tolist()
+        }
+
+        return jsonify({"message": "Success", "data": data})
+
+    return jsonify({"message": "Data not available"})
+
 
 @app.route('/payment')
 def payment():
     return render_template('payment.html')
+
+@app.route('/get_payment_modes_data', methods=['GET'])
+def get_payment_modes_data():
+    global global_dataset
+
+    if global_dataset is not None:
+        payment_modes_data = global_dataset['PaymentMode'].value_counts()
+
+        data = {
+            "labels": payment_modes_data.index.tolist(),
+            "values": payment_modes_data.values.tolist()
+        }
+
+        return jsonify({"message": "Success", "data": data})
+
+    return jsonify({"message": "Data not available"})
+
 
 @app.route('/analysis')
 def analysis():
