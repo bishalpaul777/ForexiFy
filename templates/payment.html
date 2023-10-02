@@ -115,6 +115,7 @@
 }
 #chart-container {
   text-align: center;
+  margin-top: 140px;
 }
 
 /* Add padding between the button and the title */
@@ -212,9 +213,9 @@
                 paper_bgcolor: 'rgba(0,0,0,0)', // Remove white background
                 showlegend: true, // Show the legend
                 margin: {
-                    t: 80, // Adjust top margin for title
+                    t: 30, // Adjust top margin for title
                     b: 0,  // Adjust bottom margin
-                    l: 50,  // Adjust left margin
+                    l: 0,  // Adjust left margin
                     r: 0   // Adjust right margin
                 },
                 autosize: false, // Disable autosizing
@@ -222,12 +223,24 @@
                 height: 400      // Set the height of the chart
             };
 
+            // Animation settings
+            var animationConfig = {
+                transition: { duration: 1000, easing: 'ease-in-out' },
+                frame: { duration: 1000 }
+            };
+
             // Remove the 'Download plot as PNG' option
             var config = {
                 displayModeBar: false
             };
 
-            Plotly.newPlot('paymentModesChart', pieData, pieLayout, config);
+            Plotly.newPlot('paymentModesChart', pieData, pieLayout, config).then(function () {
+                // Add animation
+                Plotly.animate('paymentModesChart', {
+                    data: [{ rotation: 360 }],
+                    traces: [0],
+                }, animationConfig);
+            });
         }
     });
 </script>
