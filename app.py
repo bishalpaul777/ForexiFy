@@ -297,6 +297,40 @@ def create_forecast_chart():
 def linear():
     return render_template('linear.html')
 
+import matplotlib.pyplot as plt
+import base64
+from io import BytesIO
+
+@app.route('/linear_regression_plot', methods=['GET'])
+def linear_regression_plot():
+    X = global_dataset[['Amount']]
+    y = global_dataset['Profit']
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+    # Create the linear regression plot
+    plt.figure(figsize=(10, 6))
+    plt.scatter(X_test, y_test, color='blue', label='Actual Data')
+    plt.plot(X_test, y_pred, color='red', linewidth=2, label='Linear Regression')
+    plt.title('Linear Regression')
+    plt.xlabel('Amount')
+    plt.ylabel('Profit')
+    plt.legend()
+    plt.grid(True)
+
+    # Save the plot as an image in memory
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    # Encode the image as base64
+    plot_image = base64.b64encode(buffer.read()).decode()
+
+    return jsonify({"plot_image": plot_image})
+
+
 @app.route('/demand')
 def demand():
     return render_template('demand.html')

@@ -44,7 +44,7 @@
       .navbar-nav a{
         color: rgb(242, 235, 221);
       }
-      /* navbar construction ends here */
+      /* Navbar construction ends here */
 
     /* First grid container starts here: "Data Analysis" */
   .container1 {
@@ -113,6 +113,15 @@
 .navbar-nav a{
   color: rgb(242, 235, 221);
 }
+.center-canvas {
+  margin-top: 10px;
+  border: 30px;
+    text-align: center;
+}
+.center-canvas canvas {
+    margin: 0 auto;
+    display: block;
+}
 </style>
 <body>
   <nav class="navbar navbar-expand-lg">
@@ -144,11 +153,28 @@
   </div>
   <div class="center-container">
     <button type="submit" class="btn btn-primary">View Analytics</button>
-</div>
+  </div>
+  <div class="center-canvas" id="linear-regression-plot"></div>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector(".btn-primary").addEventListener("click", function () {
+            // Make an AJAX request to get the linear regression plot image
+            fetch("/linear_regression_plot")
+                .then((response) => response.json())
+                .then((data) => {
+                    const plotImage = data.plot_image;
+    
+                    // Display the linear regression plot in an image tag
+                    const linearRegressionPlot = document.getElementById('linear-regression-plot');
+                    linearRegressionPlot.innerHTML = `<img src="data:image/png;base64,${plotImage}" alt="Linear Regression Plot" />`;
+                })
+                .catch((error) => console.error(error));
+        });
+    });
+  </script>
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>
 </html>
-
-
