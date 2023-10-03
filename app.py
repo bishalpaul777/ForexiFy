@@ -252,5 +252,18 @@ def demand():
 def correlation():
     return render_template('correlation.html')
 
+@app.route('/get_correlation_data')
+def get_correlation_data():
+    # Calculate the correlation matrix
+    correlation_matrix = global_dataset.corr(numeric_only=True)
+
+    # Convert the correlation matrix to a JSON-compatible format
+    correlation_data = {
+        'labels': correlation_matrix.columns.tolist(),
+        'data': correlation_matrix.values.tolist()
+    }
+
+    return jsonify({'correlationData': correlation_data})
+
 if __name__ == '__main__':
     app.run(debug=True)
