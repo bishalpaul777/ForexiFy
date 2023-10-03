@@ -15,6 +15,7 @@ import plotly.express as px
 import tempfile
 from io import BytesIO
 import base64
+import plotly.graph_objs as go 
 
 app = Flask(__name__)
 
@@ -38,6 +39,9 @@ def upload_dataset(file):
             dataset = pd.read_excel(os.path.join(app.config['UPLOAD_FOLDER'], filename), engine='openpyxl')
 
             global_dataset = dataset  
+
+            print("Column Names in Dataset:", dataset.columns.tolist())
+
             return True 
         except UnicodeDecodeError:
             return False  
@@ -212,6 +216,26 @@ def get_payment_modes_data():
 def analysis():
     return render_template('analysis.html')
 
+@app.route('/get_analysis_data')
+def get_analysis_data():
+    global_dataset['Order_Date'] = pd.to_datetime(global_dataset['Order_Date'])  # Convert to datetime if not already
+    monthly_sales = global_dataset.set_index('Order_Date').resample('M')['Amount'].sum()
+
+    # Prepare the data in a format that Plotly can use
+    chart_data = {
+        "labels": [str(date) for date in monthly_sales.index],
+        "datasets": [
+            {
+                "label": "Total Sales Amount",
+                "data": monthly_sales.values.tolist(),
+            }
+        ],
+    }
+
+    return jsonify({"ChartData": chart_data})
+
+
+
 @app.route('/forecasting')
 def forecasting():
     return render_template('forecasting.html')
@@ -230,10 +254,3 @@ def correlation():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-
-
-
-
-

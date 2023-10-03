@@ -143,9 +143,96 @@
     </div>
   </div>
   <div class="center-container">
-    <button type="submit" class="btn btn-primary">View Analytics</button>
+    <button type="button" class="btn btn-primary" id="viewAnalyticsBtn">View Analytics</button>
 </div>
 
+<div id="chart-container">
+  <div id="lineChart"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  document.getElementById("viewAnalyticsBtn").addEventListener("click", function () {
+      fetch('/get_analysis_data')  // You should modify this URL as per your Flask route
+          .then(response => response.json())
+          .then(data => {
+              const labels = data.ChartData.labels;
+              const values = data.ChartData.datasets[0].data;
+
+              // Separate data by year
+              const dataByYear = {};
+              labels.forEach((label, index) => {
+                  const year = label.split("-")[0];
+                  if (!dataByYear[year]) {
+                      dataByYear[year] = {
+                          x: [],
+                          y: [],
+                          type: 'scatter',
+                          mode: 'lines+markers',
+                          marker: {
+                              size: 8
+                          },
+                          line: {
+                              width: 3
+                          },
+                          name: year  // Year as legend label
+                      };
+                  }
+                  dataByYear[year].x.push(label);
+                  dataByYear[year].y.push(values[index]);
+              });
+
+              // Create an array of traces for Plotly
+              const chartData = Object.values(dataByYear);
+
+              const chartLayout = {
+                  title: {
+                      text: 'Time-Series Monthly Sales Analysis',
+                      font: {
+                          color: 'white'  // Set title text color to white
+                      }
+                  },
+                  xaxis: {
+                      title: 'Month',
+                      color: 'white',  // Set x-axis text color to white
+                      showline: true,  // Show x-axis line
+                      linecolor: 'white'  // Set x-axis line color to white
+                  },
+                  yaxis: {
+                      title: 'Total Sales Amount',
+                      color: 'white',  // Set y-axis text color to white
+                      showline: true,  // Show y-axis line
+                      linecolor: 'white'  // Set y-axis line color to white
+                  },
+                  plot_bgcolor: 'transparent',  // Set background color to transparent
+                  paper_bgcolor: 'transparent',  // Set paper color to transparent
+                  showlegend: true,  // Show the legend
+                  legend: {
+                      font: {
+                          color: 'white'  // Set legend text color to white
+                      }
+                  },
+                  xaxis_showgrid: false,  // Remove x-axis grid lines
+                  yaxis_showgrid: false  // Remove y-axis grid lines
+              };
+              var config = {
+                  displayModeBar: false
+              };
+
+              Plotly.newPlot('lineChart', chartData, chartLayout, config);
+          })
+          .catch(error => {
+              console.error('Error fetching data:', error);
+          });
+  });
+</script>
+
+
+
+
+
+
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
 </body>
