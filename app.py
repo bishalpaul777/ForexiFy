@@ -16,6 +16,7 @@ import tempfile
 from io import BytesIO
 import base64
 import plotly.graph_objs as go 
+from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 app = Flask(__name__)
 
@@ -239,6 +240,58 @@ def get_analysis_data():
 @app.route('/forecasting')
 def forecasting():
     return render_template('forecasting.html')
+
+@app.route('/create_forecast_chart', methods=['POST'])
+def create_forecast_chart():
+    amount_series = global_dataset['Amount']
+    ts_model = ExponentialSmoothing(amount_series, seasonal='add', seasonal_periods=12)
+    ts_fit = ts_model.fit()
+    forecast_2022 = ts_fit.forecast(steps=12)
+    forecast_2023 = ts_fit.forecast(steps=12)
+    forecast_2024 = ts_fit.forecast(steps=12)
+    forecast_2025 = ts_fit.forecast(steps=12)
+
+    date_range_2022 = pd.date_range(start='2022-01-01', periods=12, freq='M')
+    date_range_2023 = pd.date_range(start='2023-01-01', periods=12, freq='M')
+    date_range_2024 = pd.date_range(start='2024-01-01', periods=12, freq='M')
+    date_range_2025 = pd.date_range(start='2025-01-01', periods=12, freq='M')
+
+    # Create the chart
+    plt.figure(figsize=(12, 6))
+    plt.plot(date_range_2022, amount_series[-24:-12], label='Actual Data (2022)', color='green', marker='o')
+    plt.plot(date_range_2023, forecast_2023, label='Forecast (2023)', color='red', linestyle='dashed', marker='s')
+    plt.plot(date_range_2024, forecast_2024, label='Forecast (2024)', color='orange', linestyle='dashed', marker='^')
+    plt.plot(date_range_2025, forecast_2025, label='Forecast (2025)', color='blue', linestyle='dashed', marker='v')
+
+    for x, y in zip(date_range_2023, forecast_2023):
+        plt.text(x, y, f'{y:.2f}', ha='center', va='bottom', color='black')
+    for x, y in zip(date_range_2024, forecast_2024):
+        plt.text(x, y, f'{y:.2f}', ha='center', va='bottom', color='black')
+    for x, y in zip(date_range_2025, forecast_2025):
+        plt.text(x, y, f'{y:.2f}', ha='center', va='bottom', color='black')
+
+    plt.title('Time Series Forecasting')
+    plt.xlabel('Date')
+    plt.ylabel('Amount')
+    plt.legend()
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Save the chart as an image in memory
+    buffer = BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+
+    # Encode the image as base64
+    chart_image = base64.b64encode(buffer.read()).decode()
+
+    # Calculate and store the 2025 forecast data
+    forecast_2025 = ts_fit.forecast(steps=12)
+
+    return jsonify({"chart_image": chart_image, "chart_image2025": chart_image, "forecast_2025": forecast_2025.tolist()})
+
+
+
 
 @app.route('/linear')
 def linear():

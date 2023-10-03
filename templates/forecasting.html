@@ -22,133 +22,191 @@
         margin-left: 10px;
         border-radius: 30px;
         box-shadow: 2px 5px 9px chocolate;
-      }
-      /* Logo ends here: */
+    }
 
-      
-      /* Navbar Construction starts here: */
-      .navbar{
+    /* Logo ends here: */
+
+    /* Navbar Construction starts here: */
+    .navbar {
         background-color: transparent;
         color: rgb(235, 183, 119);
         font-size: 20px;
         margin-top: 0px;
         margin-right: 0px;
-      } 
-      .navbar-nav a:hover {
+    }
+
+    .navbar-nav a:hover {
         font-weight: bold;
         color: rgb(50, 255, 39);
         text-decoration: underline;
         text-transform: uppercase;
-      }
-      
-      .navbar-nav a{
+    }
+
+    .navbar-nav a {
         color: rgb(242, 235, 221);
-      }
-      /* navbar construction ends here */
+    }
+
+    /* navbar construction ends here */
 
     /* First grid container starts here: "Data Analysis" */
-  .container1 {
-      display: grid;
-      grid-template-columns: 1fr 1fr; 
-      gap: 10px; 
+    .container1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
-    
+
     .columnx {
-      padding: 20px;
-      transition: transform 0.3s ease;
+        padding: 20px;
+        transition: transform 0.3s ease;
     }
-    
+
     .column1 {
-      overflow: hidden; 
-      padding-left: 80px;
+        overflow: hidden;
+        padding-left: 80px;
     }
-    
+
     .column2 {
-      color: #C1C1C1;
-      text-decoration: solid;
-      font-weight: 600;
-      padding-right: 50px;
-      text-align: center;
+        color: #C1C1C1;
+        text-decoration: solid;
+        font-weight: 600;
+        padding-right: 50px;
+        text-align: center;
     }
+
     .column1 img {
         margin-left: 150px;
         width: 400px;
         height: 380px;
         transition: transform 0.3s ease;
         border-radius: 30px;
-        box-shadow: 2px 5px 20px  rgb(45, 45, 45);
-      }
-  .h5{
-    margin-top: 80px;
-    padding-right: 25px;
-    line-height: 2;
-  }
-  
-  .header{
-    margin-top: 40px;
-    color: white;
-    text-align: center;
-  }
-  
-.container1{
-    margin-top: 55px;
-}
-.center-container {
-    margin-top: 20px;
-    text-align: center;
-}
-.navbar{
-  background-color: transparent;
-  color: rgb(235, 183, 119);
-  font-size: 20px;
-  margin-top: 0px;
-  margin-right: 0px;
-} 
-.navbar-nav a:hover {
-  font-weight: bold;
-  color: rgb(50, 255, 39);
-  text-decoration: underline;
-  text-transform: uppercase;
-}
-.navbar-nav a{
-  color: rgb(242, 235, 221);
-}
+        box-shadow: 2px 5px 20px rgb(45, 45, 45);
+    }
+
+    .h5 {
+        margin-top: 80px;
+        padding-right: 25px;
+        line-height: 2;
+    }
+
+    .header {
+        margin-top: 40px;
+        color: white;
+        text-align: center;
+    }
+
+    .container1 {
+        margin-top: 55px;
+    }
+
+    .center-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .center-container canvas {
+        background-color: transparent;
+    }
+
+    .navbar {
+        background-color: transparent;
+        color: rgb(235, 183, 119);
+        font-size: 20px;
+        margin-top: 0px;
+        margin-right: 0px;
+    }
+
+    .navbar-nav a:hover {
+        font-weight: bold;
+        color: rgb(50, 255, 39);
+        text-decoration: underline;
+        text-transform: uppercase;
+    }
+
+    .navbar-nav a {
+        color: rgb(242, 235, 221);
+    }
 </style>
 <body>
-  <nav class="navbar navbar-expand-lg">
+<nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="../static/images/logo.png" alt="logo" class="logo">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-          <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="navbar-brand" href="#">
+            <img src="../static/images/logo.png" alt="logo" class="logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                <a class="nav-link" href="{{ url_for('dashboard') }}">Dashboard</a>
+            </div>
         </div>
-      </div>
     </div>
-  </nav>
-  <h2 class="header">Time Series Forecasting</h2>
-  <div class="container1">
+</nav>
+<h2 class="header">Time Series Forecasting</h2>
+<div class="container1">
     <div class="columnx column1">
-      <img src="../static/cards/card8.jpeg" alt="Image">
+        <img src="../static/cards/card8.jpeg" alt="Image">
     </div>
     <div class="columnx column2">
-      <h5 class="h5">
-        Time Series Forecasting in sales data involves analyzing historical trends to predict future sales, aiding in decision-making, inventory management, and meeting customer demands more effectively. It enhances strategic planning and profitability.
-      </h5>
+        <h5 class="h5">
+            Time Series Forecasting in sales data involves analyzing historical trends to predict future sales, aiding
+            in decision-making, inventory management, and meeting customer demands more effectively. It enhances
+            strategic planning and profitability.
+        </h5>
     </div>
-  </div>
-  <div class="center-container">
-    <button type="submit" class="btn btn-primary">View Analytics</button>
 </div>
+<div class="center-container">
+    <button type="button" class="btn btn-primary" onclick="createForecastChart()">View Analytics</button>
+</div>
+<div class="center-container">
+    <canvas id="forecastChart" width="800" height="400"></canvas>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+    function createForecastChart() {
+        console.log("Attempting to create chart...");
+        $.ajax({
+            type: 'POST',
+            url: '/create_forecast_chart',
+            success: function (data) {
+                console.log("Chart data received:", data);
 
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js" integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa" crossorigin="anonymous"></script>
+                // Create a new Image object and set its source to the chart image data
+                var chartImg = new Image();
+                chartImg.src = 'data:image/png;base64,' + data.chart_image;
+
+                // Get the canvas element for the 2023-2024 forecast
+                var canvas = document.getElementById('forecastChart');
+                var ctx = canvas.getContext('2d');
+
+                // Set the canvas background color to transparent
+                ctx.canvas.style.backgroundColor = 'transparent';
+
+                // Set canvas width and height based on the chart image dimensions
+                canvas.width = chartImg.width;
+                canvas.height = chartImg.height;
+
+                // Draw the chart image on the canvas
+                ctx.drawImage(chartImg, 0, 0);
+            },
+            error: function () {
+                console.error("Failed to create chart.");
+                // Handle errors
+            }
+        });
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
 </body>
 </html>
-
-
