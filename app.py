@@ -1,22 +1,17 @@
-from flask import Flask, render_template, request, redirect, jsonify, Response
+from flask import Flask, render_template, request, redirect, jsonify
 import pandas as pd
-import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 from sklearn.cluster import KMeans
 import seaborn as sns
 import os
 import json
-from werkzeug.utils import secure_filename 
-from flask import send_file
+from werkzeug.utils import secure_filename
 import plotly.express as px
 import tempfile
 from io import BytesIO
 import base64
-import plotly.graph_objs as go 
-from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 app = Flask(__name__)
 
