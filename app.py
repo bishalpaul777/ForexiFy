@@ -335,6 +335,45 @@ def linear_regression_plot():
 def demand():
     return render_template('demand.html')
 
+@app.route('/get_demand_prediction_data')
+def get_demand_prediction_data():
+    global global_dataset
+
+    if global_dataset is not None:
+        # Clustering for Demand Prediction
+        X_clustering = global_dataset[['Amount', 'Profit']]
+        kmeans_model = KMeans(n_clusters=5, random_state=42)
+        kmeans_model.fit(X_clustering)
+        cluster_labels = kmeans_model.labels_
+        global_dataset['Cluster'] = cluster_labels
+
+        # Create a bar plot for cluster means
+        palette = sns.color_palette("Set1", n_colors=len(global_dataset['Cluster'].unique()))
+        cluster_means = global_dataset.groupby('Cluster').mean()
+
+        plt.figure(figsize=(10, 6))
+        cluster_means[['Amount', 'Profit']].plot(kind='bar', color=palette)
+        plt.title('Clustering for Demand Prediction')
+        plt.xlabel('Cluster')
+        plt.ylabel('Mean Value')
+        plt.legend(title='Feature', loc='upper right')
+        plt.xticks(rotation=0)
+        plt.tight_layout()
+        plt.show()
+        print(cluster_means)
+
+        # Prepare the data to be sent as JSON
+        demand_prediction_data = {
+            "labels": cluster_means.index.tolist(),
+            "values": cluster_means['Amount'].tolist(),  # You can choose 'Amount' or 'Profit' as per your preference
+        }
+
+        return jsonify(demand_prediction_data)
+
+    return jsonify({"message": "Data not available"})
+
+
+
 @app.route('/correlation')
 def correlation():
     return render_template('correlation.html')
